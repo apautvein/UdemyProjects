@@ -72,6 +72,14 @@ const UICtrl = (function () {
                 calories: document.querySelector(UISelectors.itemCaloriesInput).value
             }
         },
+        addListItem: function (item) {
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            li.id = `item-${item.id}`;
+            li.innerHTML = `<strong>${item.name} </strong> <em>${item.calories} Calories</em>
+             <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>`;
+            document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+        },
         getSelectors: function () {
             return UISelectors;
         }
@@ -90,6 +98,7 @@ const App = (function (ItemCtrl, UICtrl) {
         const input = UICtrl.getItemInput();
         if (input.name !== '' && input.calories !== '') {
             const newItem = ItemCtrl.addItem(input.name, input.calories);
+            UICtrl.addListItem(newItem);
         }
 
         e.preventDefault();
